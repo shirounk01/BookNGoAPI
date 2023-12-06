@@ -5,50 +5,50 @@ namespace BookNGoAPI.Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly BookNGoContext _bookNGoContext;
-        //private IUserRepository? _userRepository;
-        //private IFlightRepository? _flightRepository;
-        //private IBookFlightRepository? _bookFlightRepository;
+        private IUserRepository? _userRepository;
+        private IFlightRepository? _flightRepository;
+        private IBookFlightRepository? _bookFlightRepository;
         private IHotelRepository? _hotelRepository;
-        //private IBookHotelRepository? _bookHotelRepository;
-        //private IReviewRepository? _reviewRepository;
+        private IBookHotelRepository? _bookHotelRepository;
+        private IReviewRepository? _reviewRepository;
 
-        //public IUserRepository UserRepository
-        //{
-        //    get
-        //    {
-        //        if (_userRepository == null)
-        //        {
-        //            _userRepository = new UserRepository(_bookNGoContext);
-        //        }
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserRepository(_bookNGoContext);
+                }
 
-        //        return _userRepository;
-        //    }
-        //}
+                return _userRepository;
+            }
+        }
 
-        //public IFlightRepository FlightRepository
-        //{
-        //    get
-        //    {
-        //        if (_flightRepository == null)
-        //        {
-        //            _flightRepository = new FlightRepository(_bookNGoContext);
-        //        }
+        public IFlightRepository FlightRepository
+        {
+            get
+            {
+                if (_flightRepository == null)
+                {
+                    _flightRepository = new FlightRepository(_bookNGoContext);
+                }
 
-        //        return _flightRepository;
-        //    }
-        //}
-        //public IBookFlightRepository BookFlightRepository
-        //{
-        //    get
-        //    {
-        //        if (_bookFlightRepository == null)
-        //        {
-        //            _bookFlightRepository = new BookFlightRepository(_bookNGoContext);
-        //        }
+                return _flightRepository;
+            }
+        }
+        public IBookFlightRepository BookFlightRepository
+        {
+            get
+            {
+                if (_bookFlightRepository == null)
+                {
+                    _bookFlightRepository = new BookFlightRepository(_bookNGoContext);
+                }
 
-        //        return _bookFlightRepository;
-        //    }
-        //}
+                return _bookFlightRepository;
+            }
+        }
         public IHotelRepository HotelRepository
         {
             get
@@ -62,30 +62,30 @@ namespace BookNGoAPI.Repositories
             }
         }
 
-        //public IBookHotelRepository BookHotelRepository
-        //{
-        //    get
-        //    {
-        //        if (_bookHotelRepository == null)
-        //        {
-        //            _bookHotelRepository = new BookHotelRepository(_bookNGoContext);
-        //        }
+        public IBookHotelRepository BookHotelRepository
+        {
+            get
+            {
+                if (_bookHotelRepository == null)
+                {
+                    _bookHotelRepository = new BookHotelRepository(_bookNGoContext);
+                }
 
-        //        return _bookHotelRepository;
-        //    }
-        //}
-        //public IReviewRepository ReviewRepository
-        //{
-        //    get
-        //    {
-        //        if (_reviewRepository == null)
-        //        {
-        //            _reviewRepository = new ReviewRepository(_bookNGoContext);
-        //        }
+                return _bookHotelRepository;
+            }
+        }
+        public IReviewRepository ReviewRepository
+        {
+            get
+            {
+                if (_reviewRepository == null)
+                {
+                    _reviewRepository = new ReviewRepository(_bookNGoContext);
+                }
 
-        //        return _reviewRepository;
-        //    }
-        //}
+                return _reviewRepository;
+            }
+        }
         public RepositoryWrapper(BookNGoContext context)
         {
             _bookNGoContext = context;

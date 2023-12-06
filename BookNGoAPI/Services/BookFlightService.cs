@@ -1,0 +1,53 @@
+﻿using BookNGoAPI.Models;
+using BookNGoAPI.Repositories.Interfaces;
+using BookNGoAPI.Services.Interfaces;
+
+namespace BookNGoAPI.Services
+{
+    public class BookFlightService : IBookFlightService
+    {
+        private readonly IRepositoryWrapper _repo;
+        private readonly IFlightService _flightService;
+
+        public BookFlightService(IRepositoryWrapper repo, IFlightService flightService)
+        {
+            _repo = repo;
+            _flightService = flightService;
+        }
+
+        public void BookFlight(string userGuid, Flight flight)
+        {
+            BookFlight bookFlight = BuildNewBookFlight(userGuid, flight);
+
+            _repo.FlightRepository.Update(flight);
+            _repo.BookFlightRepository.Create(bookFlight);
+
+        }
+
+        private static BookFlight BuildNewBookFlight(string userGuid, Flight flight)
+        {
+            BookFlight bookFlight = new BookFlight();
+            bookFlight.Flight = flight;
+            bookFlight.UserGuid = userGuid;
+            bookFlight.RegistrationDate = DateTime.Now;
+            return bookFlight;
+        }
+
+        public void BookFlights(int goingId, int comingId, string userGuid)
+        {
+            Flight goingFlight = _flightService.GetFlightById(goingId);
+            Flight comingFlight = _flightService.GetFlightById(comingId);
+            BookFlight(userGuid, goingFlight);
+            BookFlight(userGuid, comingFlight);
+
+            _repo.Save();
+        }
+
+        public List<BookFlight> GetReservationsByUserId(string userGuid)
+        {
+            List<BookFlight> flightReservations = _repo.BookFlightRepository.FindByCondition(flight => flight.UserGuid == userGuid).ToList();
+            return flightReservations;
+        }
+    }
+
+}

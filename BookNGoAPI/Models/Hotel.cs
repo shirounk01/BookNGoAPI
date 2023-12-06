@@ -11,7 +11,7 @@
         public DateTime OpenDate { get; set; } = DateTime.MinValue;
         public DateTime CloseDate { get; set; } = DateTime.MaxValue;
 
-        //public ICollection<BookHotel>? BookingUsers { get; set; }
-        //public ICollection<Review>? Reviews { get; set; }
+        public ICollection<BookHotel>? BookingUsers { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
     }
 }
