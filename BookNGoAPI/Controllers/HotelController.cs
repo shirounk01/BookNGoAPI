@@ -27,7 +27,6 @@ namespace BookNGoAPI.Controllers
         public IActionResult Index([FromBody] Hotel hotel)
         {
             var results = _hotelService.GetHotelsByModel(hotel);
-            //return View(results);
             return Ok(results);
         }
         [HttpPost("Index/Filter")]
@@ -38,10 +37,9 @@ namespace BookNGoAPI.Controllers
 
         }
 
-        // change the hotel thing to a period of time
         // manage the guid
         [Authorize]
-        [HttpPost("BookHotel/{id}")]
+        [HttpPost("Book/{id}")]
         public IActionResult BookHotel(int id, string userGuid, [FromBody] HotelInfo hotelInfo)
         {
             var hotel = new Hotel() { OpenDate = hotelInfo.From, CloseDate = hotelInfo.To };
