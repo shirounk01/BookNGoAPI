@@ -23,13 +23,13 @@ namespace BookNGoAPI.Controllers
             _reviewService = reviewService;
         }
 
-        [HttpPost("Index")]
+        [HttpPost]
         public IActionResult Index([FromBody] Hotel hotel)
         {
             var results = _hotelService.GetHotelsByModel(hotel);
             return Ok(results);
         }
-        [HttpPost("Index/Filter")]
+        [HttpPost("Filter")]
         public IActionResult IndexFiltered([FromQuery] Filter filter, [FromBody] List<Hotel> hotels)
         {
             var updatedHotels = _hotelService.FilterHotels(filter, hotels!);

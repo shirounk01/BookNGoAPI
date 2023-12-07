@@ -48,6 +48,13 @@ namespace BookNGoAPI.Services
             List<BookFlight> flightReservations = _repo.BookFlightRepository.FindByCondition(flight => flight.UserGuid == userGuid).ToList();
             return flightReservations;
         }
+
+        public bool CheckContinuity(int goingId, int comingId)
+        {
+            var goingFlight = _flightService.GetFlightById(goingId);
+            var comingFlight = _flightService.GetFlightById(comingId);
+            return goingFlight.DepartureCity == comingFlight.ArrivalCity && comingFlight.DepartureCity == goingFlight.ArrivalCity && goingFlight.DepartureAirport == comingFlight.ArrivalAirport && comingFlight.DepartureAirport == goingFlight.ArrivalAirport;
+        }
     }
 
 }
