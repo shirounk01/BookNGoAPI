@@ -32,16 +32,9 @@ namespace BookNGoAPI.Controllers
             var returnObj = new { Flight = flight, FlightPack = flightPack };
             return Ok(returnObj);
         }
-        [HttpPost("/Filter")]
-        public IActionResult IndexFiltered([FromQuery] Filter filter, [FromBody] List<FlightPackInfo> flightsInfo)
+        [HttpPost("Filter")]
+        public IActionResult IndexFiltered([FromQuery] Filter filter, [FromBody] List<FlightPack> flights)
         {
-            List<FlightPack> flights = new();
-            foreach(FlightPackInfo flight in flightsInfo)
-            {
-                var flightComing = _flightService.GetFlightById(flight.FlightComingId);
-                var flightGoing = _flightService.GetFlightById(flight.FlightGoingId);
-                flights.Add(new FlightPack() { FlightComing = flightComing, FlightGoing = flightGoing, Price = flightComing.Price + flightGoing.Price });
-            }
             var updatedFlights = _flightPackService.FilterFlights(filter, flights!);
             return Ok(updatedFlights);
         }
