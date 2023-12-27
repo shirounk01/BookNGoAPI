@@ -58,10 +58,10 @@ namespace BookNGoAPI.Controllers
         //manage the guid
         [Authorize]
         [HttpPost("Reviews/Post/{id}")]
-        public IActionResult Review([FromBody] ReviewInfo reviewInfo, int id, string userGuid)
+        public IActionResult Review([FromBody] ReviewInfo reviewInfo, int id)
         {
             var review = new Review() { Comment = reviewInfo.Comment, Created = reviewInfo.Created, Rating = reviewInfo.Rating };
-            _reviewService.AddReview(review, id, userGuid);
+            _reviewService.AddReview(review, id);
             return Ok();
         }
 

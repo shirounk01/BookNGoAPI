@@ -7,17 +7,19 @@ namespace BookNGoAPI.Services
     public class ReviewService : IReviewService
     {
         private readonly IRepositoryWrapper _repo;
+        private readonly IUserService _userService;
 
-        public ReviewService(IRepositoryWrapper repo)
+        public ReviewService(IRepositoryWrapper repo, IUserService userService)
         {
             _repo = repo;
+            _userService = userService;
         }
 
-        public void AddReview(Review review, int id, string userGuid)
+        public void AddReview(Review review, int id)
         {
             var hotel = _repo.HotelRepository.FindByCondition(item => item.HotelId == id).FirstOrDefault();
             review.Hotel = hotel;
-            review.UserGuid = userGuid;
+            review.UserGuid = _userService.GetGuid();
             review.Created = DateTime.Now;
             _repo.ReviewRepository.Create(review);
             _repo.HotelRepository.Update(hotel!);
