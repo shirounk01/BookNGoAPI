@@ -8,16 +8,20 @@ namespace BookNGoAPI.Services
     {
         private readonly IRepositoryWrapper _repo;
         private readonly IHotelService _hotelService;
+        private readonly IUserService _userService;
 
-        public BookHotelService(IRepositoryWrapper repo, IHotelService hotelService)
+        public BookHotelService(IRepositoryWrapper repo, IHotelService hotelService, IUserService userService)
         {
             _repo = repo;
             _hotelService = hotelService;
+            _userService = userService;
         }
 
-        public void BookHotel(int id, string userGuid, Hotel reference)
+        public void BookHotel(int id, Hotel reference)
         {
             Hotel hotel = _hotelService.FindHotelById(id);
+
+            var userGuid = _userService.GetGuid();
             BookHotel bookHotel = BuildNewBookHotel(userGuid, reference, hotel);
 
             _repo.HotelRepository.Update(hotel);

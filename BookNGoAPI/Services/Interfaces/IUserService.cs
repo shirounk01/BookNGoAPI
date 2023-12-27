@@ -8,5 +8,6 @@ namespace BookNGoAPI.Services.Interfaces
         User FindByEmail(string email);
         bool CheckPassword(string password, User user);
         void CreateUser(UserInfo registerRequest);
+        string GetGuid();
     }
 }

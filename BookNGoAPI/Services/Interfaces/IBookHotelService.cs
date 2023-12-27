@@ -4,7 +4,7 @@ namespace BookNGoAPI.Services.Interfaces
 {
     public interface IBookHotelService
     {
-        void BookHotel(int id, string userGuid, Hotel reference);
+        void BookHotel(int id, Hotel reference);
         List<BookHotel> GetReservationsByUserId(string userGuid);
     }
 }

@@ -40,13 +40,13 @@ namespace BookNGoAPI.Controllers
         // manage the guid
         [Authorize]
         [HttpPost("Book/{id}")]
-        public IActionResult BookHotel(int id, string userGuid, [FromBody] HotelInfo hotelInfo)
+        public IActionResult BookHotel(int id, [FromBody] HotelInfo hotelInfo)
         {
             var hotel = new Hotel() { OpenDate = hotelInfo.From, CloseDate = hotelInfo.To };
-            _bookHotelService.BookHotel(id, userGuid, hotel!);
+            _bookHotelService.BookHotel(id, hotel!);
             return Ok();
         }
-        [HttpPost("Reviews/{id}")]
+        [HttpGet("Reviews/{id}")]
         public IActionResult Review(int id)
         {
             Hotel hotel = _hotelService.FindHotelById(id);
