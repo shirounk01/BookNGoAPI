@@ -8,11 +8,13 @@ namespace BookNGoAPI.Services
     {
         private readonly IRepositoryWrapper _repo;
         private readonly IFlightService _flightService;
+        private readonly IUserService _userService;
 
-        public BookFlightService(IRepositoryWrapper repo, IFlightService flightService)
+        public BookFlightService(IRepositoryWrapper repo, IFlightService flightService, IUserService userService)
         {
             _repo = repo;
             _flightService = flightService;
+            _userService = userService;
         }
 
         public void BookFlight(string userGuid, Flight flight)
@@ -33,8 +35,9 @@ namespace BookNGoAPI.Services
             return bookFlight;
         }
 
-        public void BookFlights(int goingId, int comingId, string userGuid)
+        public void BookFlights(int goingId, int comingId)
         {
+            var userGuid = _userService.GetGuid();
             Flight goingFlight = _flightService.GetFlightById(goingId);
             Flight comingFlight = _flightService.GetFlightById(comingId);
             BookFlight(userGuid, goingFlight);

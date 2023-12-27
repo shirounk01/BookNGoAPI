@@ -40,11 +40,11 @@ namespace BookNGoAPI.Controllers
         }
         [Authorize]
         [HttpPost("Book/{goingId}-{comingId}")]
-        public IActionResult BookFlight(string userGuid, int goingId, int comingId)
+        public IActionResult BookFlight(int goingId, int comingId)
         {
             if(_bookFlightService.CheckContinuity(goingId, comingId))
             {
-                _bookFlightService.BookFlights(goingId, comingId, userGuid);
+                _bookFlightService.BookFlights(goingId, comingId);
                 return Ok();
             }
             return BadRequest();
