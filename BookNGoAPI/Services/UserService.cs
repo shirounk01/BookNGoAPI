@@ -2,17 +2,22 @@
 using BookNGoAPI.Models.DTOs;
 using BookNGoAPI.Repositories.Interfaces;
 using BookNGoAPI.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace BookNGoAPI.Services
 {
     public class UserService : IUserService
     {
+        private readonly IConfiguration _config;
         private readonly IRepositoryWrapper _repo;
         private readonly IHttpContextAccessor _context;
 
-        public UserService(IRepositoryWrapper repo, IHttpContextAccessor context)
+        public UserService(IConfiguration config,IRepositoryWrapper repo, IHttpContextAccessor context)
         {
+            _config = config;
             _repo = repo;
             _context = context;
         }
@@ -22,7 +27,7 @@ namespace BookNGoAPI.Services
             return password.Equals(user.Password); // change to encription
         }
 
-        public void CreateUser(UserInfo registerRequest)
+        public User CreateUser(UserInfo registerRequest)
         {
             User user = new User();
             user.Password = registerRequest.Password;
@@ -30,6 +35,8 @@ namespace BookNGoAPI.Services
 
             _repo.UserRepository.Create(user);
             _repo.Save();
+
+            return user;
         }
 
         public User FindByEmail(string email)
@@ -57,6 +64,23 @@ namespace BookNGoAPI.Services
             return userGuid;
         }
 
+        public string GenerateToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Email), new Claim(ClaimTypes.NameIdentifier, user.UserGuid) };
+            //claims.Add(new Claim(ClaimTypes.Role, _userRoles[0]));
+
+            var Sectoken = new JwtSecurityToken(_config["Jwt:Issuer"],
+              _config["Jwt:Issuer"],
+              claims,
+              expires: DateTime.Now.AddMinutes(120),
+              signingCredentials: credentials);
+
+            var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
+            return token;
+        }
     }
 
 }
