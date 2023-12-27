@@ -51,7 +51,7 @@ namespace BookNGoAPI.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
-        public IActionResult Create([FromForm] Flight flight)
+        public IActionResult Create([FromBody] Flight flight)
         {
             _flightService.AddFlights(flight);
             return Ok();
