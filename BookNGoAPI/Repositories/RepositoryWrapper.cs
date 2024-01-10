@@ -11,6 +11,8 @@ namespace BookNGoAPI.Repositories
         private IHotelRepository? _hotelRepository;
         private IBookHotelRepository? _bookHotelRepository;
         private IReviewRepository? _reviewRepository;
+        private IUserRoleRepository? _userRoleRepository;
+        private IRoleRepository? _roleRepository;
 
         public IUserRepository UserRepository
         {
@@ -84,6 +86,31 @@ namespace BookNGoAPI.Repositories
                 }
 
                 return _reviewRepository;
+            }
+        }
+
+        public IUserRoleRepository UserRoleRepository
+        {
+            get
+            {
+                if (_userRoleRepository == null)
+                {
+                    _userRoleRepository = new UserRoleRepository(_bookNGoContext);
+                }
+
+                return _userRoleRepository;
+            }
+        }
+        public IRoleRepository RoleRepository
+        {
+            get
+            {
+                if (_roleRepository == null)
+                {
+                    _roleRepository = new RoleRepository(_bookNGoContext);
+                }
+
+                return _roleRepository;
             }
         }
         public RepositoryWrapper(BookNGoContext context)

@@ -9,6 +9,8 @@
         IHotelRepository HotelRepository { get; }
         IBookHotelRepository BookHotelRepository { get; }
         IReviewRepository ReviewRepository { get; }
+        IUserRoleRepository UserRoleRepository { get; }
+        IRoleRepository RoleRepository { get; }
 
         void Save();
     }

@@ -12,6 +12,8 @@ namespace BookNGoAPI
         public DbSet<BookHotel>? BookHotels { get; set; }
         public DbSet<BookFlight>? BookFlights { get; set; }
         public DbSet<User>? Users { get; set; }
+        public DbSet<UserRole>? UserRoles { get; set; }
+        public DbSet<Role>? Roles { get; set; }
 
     }
 }

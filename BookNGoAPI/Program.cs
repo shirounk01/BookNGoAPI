@@ -100,6 +100,11 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

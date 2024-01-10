@@ -11,5 +11,6 @@ namespace BookNGoAPI.Models
         public ICollection<BookFlight>? BookedFlights { get; set; }
         public ICollection<BookHotel>? BookedHotels { get; set; }
         public ICollection<Review>? Reviews { get; set; }
+        public ICollection<UserRole>? Roles { get; set; }
     }
 }
